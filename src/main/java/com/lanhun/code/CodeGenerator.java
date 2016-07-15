@@ -22,7 +22,7 @@ public class CodeGenerator {
 		long t=System.currentTimeMillis();
 		String code=genertor.generate("O2O");
 		t=System.currentTimeMillis()-t;
-		logger.error("generate : "+code+" take "+t+" ms");
+		logger.info("generate : "+code+" take "+t+" ms");
 		return code;
 	}
 }
