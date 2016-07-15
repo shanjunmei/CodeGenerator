@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!-- status=debug 可以查看log4j的装配过程 -->  
+<Configuration monitorinterval="30" status="WARN">  
+    <properties>  
+        <!--定义变量-->
+        <property name="LOG_HOME">./logs/</property>  
+        <property name="LOG_FILE_NAME">${sys:logFileName}</property>  
+        <property name="PATTERN_LOG">%date|%-level|%file:%line|%msg%n</property>  
+    </properties>  
+    <Appenders>  
+        <!-- 定义控制台输出 -->  
+        <Console name="Console" target="SYSTEM_OUT" follow="true">  
+            <PatternLayout>
+                <charset>UTF-8</charset>
+                <Pattern>${PATTERN_LOG}</Pattern>
+            </PatternLayout>
+        </Console>  
+        <!-- 日志配置 -->  
+        <RollingRandomAccessFile name="logfile" fileName="${LOG_HOME}/${LOG_FILE_NAME}/applog"  
+            filePattern="${LOG_HOME}/${LOG_FILE_NAME}/applog.%d{yyyy-MM-dd-HH}.log">  
+            <PatternLayout>
+                <charset>UTF-8</charset>
+                <Pattern>${PATTERN_LOG}</Pattern>
+            </PatternLayout> 
+            <Policies>  
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />  
+            </Policies>  
+        </RollingRandomAccessFile>  
+        
+        
+    </Appenders>  
+    <Loggers>  
+        <!-- 3rdparty Loggers -->  
+        <Logger name="logfile" level="INFO">  
+            <AppenderRef ref="logfile" />  
+        </Logger>    
+        
+        <!-- Root Logger -->  
+        <Root level="INFO">  
+            <AppenderRef ref="Console" />  
+        </Root>  
+    </Loggers>  
+</Configuration>  
